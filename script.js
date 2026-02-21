@@ -107,12 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
     generateParticles();
 
     // 4. Parallax Background Scroll Effect
-    // The background should scroll slower than the content
+    // The background should scroll slower than the content, moving upwards
     const handleParallax = () => {
         const scrolled = window.scrollY;
-        // Move the background down relative to the scroll position
-        // The higher the divisor, the slower the background moves
-        document.body.style.backgroundPositionY = `${scrolled * 0.4}px`;
+        // The image naturally scrolls up 1px per 1px scrolled.
+        // We push it down slightly to make it *seem* like it's scrolling up slower.
+        // For example, if we scroll 100px down, image moves 100px up natively.
+        // We offset it by +50px, so it only moved 50px up relative to the screen.
+        document.body.style.backgroundPositionY = `${scrolled * 0.5}px`;
     };
 
     window.addEventListener('scroll', handleParallax);
