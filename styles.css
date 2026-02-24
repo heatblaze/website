@@ -140,7 +140,7 @@ h6 {
 }
 
 .alt-bg {
-    background-color: var(--color-bg-charcoal);
+    background-color: rgba(15, 8, 30, 0.1);
     border-top: var(--glass-border);
     border-bottom: var(--glass-border);
 }
@@ -690,6 +690,7 @@ h6 {
 
 .artist-card {
     background: rgba(10, 10, 10, 0.8);
+    /* Made this much lighter from 0.8 to 0.3 */
     border: var(--glass-border);
     border-radius: 8px;
     overflow: hidden;
@@ -1014,6 +1015,11 @@ h6 {
 
 /* Responsive */
 @media (max-width: 768px) {
+    body {
+        /* Force background to a massive absolute height so mobile browsers don't calculate % based on viewport size, running out of image early */
+        background-size: auto 4500px;
+    }
+
     .nav-links {
         display: none;
     }
@@ -1100,4 +1106,74 @@ h6 {
         bottom: 0;
         margin-top: 1rem;
     }
+}
+
+/* Sponsors Section */
+.sponsors-section {
+    padding: 5rem 0;
+    position: relative;
+    z-index: 2;
+    background-color: transparent;
+}
+
+.sponsors-section .section-title {
+    margin-bottom: 4rem;
+}
+
+.marquee-container {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    width: 100%;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 100%;
+    gap: 4rem;
+    padding-right: 4rem;
+    /* essential to keep uniform gap between sets */
+    animation: scroll-marquee 20s linear infinite;
+    will-change: transform;
+}
+
+.marquee-container:hover .marquee-content {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-marquee {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+.logo-box {
+    opacity: 0.5;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    letter-spacing: 3px;
+    color: var(--color-text-main);
+    white-space: nowrap;
+    cursor: pointer;
+    will-change: transform, opacity;
+}
+
+.logo-box:hover {
+    opacity: 1;
+    transform: scale(1.1) translateZ(0);
+    color: var(--color-mythic-gold);
+    text-shadow: 0 0 15px var(--color-gold-glow);
 }
